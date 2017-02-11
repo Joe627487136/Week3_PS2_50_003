@@ -1,6 +1,6 @@
 # Week3_PS2_50_003
 1. Cohort4 answers embeded already. They are both hand-drawed photo uploads.
-2. Notice that for homework 1 there are no test demo code, if possible please help test the code since I don't have a data dor stock values.
+2. Notice that for homework 1 there are no test demo code, if possible please help test the observer code since I don't have a data For stock values.
 
 
 
