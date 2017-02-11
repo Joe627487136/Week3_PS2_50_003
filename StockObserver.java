@@ -3,10 +3,10 @@ package Week3;
 //Represents each Observer that is monitoring changes in the subject
 
 public class StockObserver implements Observer {
-	
-	private double ibmPrice;
-	private double aaplPrice;
-	private double googPrice;
+
+	private double[] price;
+
+	private int[] listedstockindex;
 	
 	// Static used as a counter
 	
@@ -42,22 +42,20 @@ public class StockObserver implements Observer {
 	}
 	
 	// Called to update all observers
-	
-	public void update(double ibmPrice, double aaplPrice, double googPrice) {
-		
-		this.ibmPrice = ibmPrice;
-		this.aaplPrice = aaplPrice;
-		this.googPrice = googPrice;
-		
+    public int[] getmystock() {
+        return listedstockindex;
+    }
+
+	public void update(double[] price) {
+        this.price=price;
 		printThePrices();
 		
 	}
-	
+
+
+
 	public void printThePrices(){
-		
-		System.out.println(observerID + "\nIBM: " + ibmPrice + "\nAAPL: " + 
-				aaplPrice + "\nGOOG: " + googPrice + "\n");
-		
+		System.out.println(price);
 	}
 	
 }
