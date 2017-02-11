@@ -50,7 +50,7 @@ public class StockGrabber implements iSubject {
 		}
 	}
 	private double[] getPrice (Observer observer, double[] price) {
-		int[] interest = observer.getInterest();
+		int[] interest = observer.getmystock();
 		double[] newprice = new double[interest.length];
 
 		for (int i = 0; i < interest.length; i++) {
