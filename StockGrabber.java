@@ -1,61 +1,69 @@
 package Week3;
 
-//Represents each Observer that is monitoring changes in the subject
+import java.util.ArrayList;
 
-public class StockObserver implements Observer {
+//Uses the Subject interface to update all Observers
 
+public class StockGrabber implements iSubject {
+	
+	private ArrayList<Observer> observers;
 	private double[] price;
-
-	private int[] listedstockindex;
 	
-	// Static used as a counter
-	
-	private static int observerIDTracker = 0;
-	
-	// Used to track the observers
-	
-	private int observerID;
-	
-	// Will hold reference to the StockGrabber object
-	
-	private iSubject stockGrabber;
-	
-	public StockObserver(iSubject stockGrabber){
+	public StockGrabber(){
 		
-		// Store the reference to the stockGrabber object so
-		// I can make calls to its methods
+		// Creates an ArrayList to hold all observers
 		
-		this.stockGrabber = stockGrabber;
-		
-		// Assign an observer ID and increment the static counter
-		
-		this.observerID = ++observerIDTracker;
-		
-		// Message notifies user of new observer
-		
-		System.out.println("New Observer " + this.observerID);
-		
-		// Add the observer to the Subjects ArrayList
-		
-		stockGrabber.register(this);
-		
+		observers = new ArrayList<Observer>();
 	}
 	
-	// Called to update all observers
-    public int[] getmystock() {
-        return listedstockindex;
-    }
-
-	public void update(double[] price) {
-        this.price=price;
-		printThePrices();
+	public void register(Observer newObserver) {
+		
+		// Adds a new observer to the ArrayList
+		
+		observers.add(newObserver);
 		
 	}
 
+	public void unregister(Observer deleteObserver) {
+		
+		// Get the index of the observer to delete
+		
+		int observerIndex = observers.indexOf(deleteObserver);
+		
+		// Print out message (Have to increment index to match)
+		
+		System.out.println("Observer " + (observerIndex+1) + " deleted");
+		
+		// Removes observer from the ArrayList
+		
+		observers.remove(observerIndex);
+		
+	}
 
+	public void notifyObserver() {
+		
+		// Cycle through all observers and notifies them of
+		// price changes
+		for(Observer observer : observers){
+			observer.update(getPrice(observer,price));
+			
+		}
+	}
+	private double[] getPrice (Observer observer, double[] price) {
+		int[] interest = observer.getInterest();
+		double[] newprice = new double[interest.length];
 
-	public void printThePrices(){
-		System.out.println(price);
+		for (int i = 0; i < interest.length; i++) {
+			newprice[i] = price[interest[i]];
+		}
+
+		return newprice;
 	}
 	
+	// Change prices for all stocks and notifies observers of changes
+
+	public void setPrice(double p, int i){
+		price[i] = p;
+		notifyObserver();
+	}
 }
